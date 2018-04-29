@@ -8,15 +8,43 @@ public class Node {
 
     private ArrayList<Node> childs;
     private Node parent;
-
     private double gain;
-
     private Attribute attribute;
     private String parentAttValue;
+    private String resultValue;
+
 
     public Node(Node parent, String parentAttValue) {
         this.parent = parent;
         this.parentAttValue = parentAttValue;
+    }
+
+    public void addChild(Node node) {
+        if (childs == null) {
+            childs = new ArrayList<>();
+        }
+        childs.add(node);
+    }
+
+    public Node findChild(String attributeValue) {
+        for (Node node : childs) {
+            if (node.parentAttValue.equals(attributeValue)) {
+                return node;
+            }
+        }
+        return null;
+    }
+
+    public boolean isResultNode() {
+        return childs == null || childs.isEmpty();
+    }
+
+    public String getResultValue() {
+        return resultValue;
+    }
+
+    public void setResultValue(String resultValue) {
+        this.resultValue = resultValue;
     }
 
     public String getParentAttValue() {

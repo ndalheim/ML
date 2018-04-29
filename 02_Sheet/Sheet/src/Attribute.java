@@ -6,14 +6,15 @@ import java.util.ArrayList;
  */
 public class Attribute {
 
-    String name;
-    ArrayList<String> values;
-    int columnInDataset;
+    private String name;
+    private ArrayList<String> values;
+    private int columnInDataset;
 
     /**
      * Constructor
-     * @param name of the attribute
-     * @param values of the attribute (nominal)
+     *
+     * @param name            of the attribute
+     * @param values          of the attribute (nominal)
      * @param attributeNumber of the arff file
      */
     public Attribute(String name, ArrayList<String> values, int attributeNumber) {
