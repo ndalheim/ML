@@ -8,6 +8,7 @@ public class DecisionTreeModel {
 
     private Node root;
 
+    private int maxDeth;
 
     public void predict(DataSet predictionSet, Attribute classAttribute) {
         for (int i = 0; i < predictionSet.getRows(); i++) {
@@ -58,6 +59,17 @@ public class DecisionTreeModel {
                            ArrayList<Attribute> attributes,
                            Attribute classAttribute) {
 
+        trainModel(dataset, attributes, classAttribute, Integer.MAX_VALUE);
+
+    }
+
+    public void trainModel(DataSet dataset,
+                           ArrayList<Attribute> attributes,
+                           Attribute classAttribute,
+                           int maxDepth) {
+
+        setMaxDeth(maxDepth);
+
         int[] validRows = new int[dataset.getRows()];
         Arrays.fill(validRows, 1);
 
@@ -65,7 +77,8 @@ public class DecisionTreeModel {
         remainingAttributes.remove(classAttribute);
 
         Node root = new Node(null, null);
-        trainModelOnSubset(dataset, remainingAttributes, validRows, root, classAttribute);
+        trainModelOnSubset(dataset, remainingAttributes,
+                validRows, root, classAttribute, 0);
         setRoot(root);
     }
 
@@ -74,7 +87,8 @@ public class DecisionTreeModel {
                                       ArrayList<Attribute> remainingAttributes,
                                       int[] validRows,
                                       Node newNode,
-                                      Attribute classAttribute) {
+                                      Attribute classAttribute,
+                                      int depth) {
 
         double entropy = entropyOnSubset(dataset, validRows, classAttribute);
         if (entropy == 0.0) {
@@ -111,7 +125,9 @@ public class DecisionTreeModel {
 
             ArrayList<Attribute> childRemainingAtts = new ArrayList<>(remainingAttributes);
             childRemainingAtts.remove(maxAtt);
-            trainModelOnSubset(dataset, childRemainingAtts, validRowsForChilds.get(i), child, classAttribute);
+            trainModelOnSubset(dataset, childRemainingAtts,
+                    validRowsForChilds.get(i), child, classAttribute,
+                    depth + 1);
         }
 
     }
@@ -171,5 +187,13 @@ public class DecisionTreeModel {
 
     protected void setRoot(Node root) {
         this.root = root;
+    }
+
+    protected int getMaxDeth() {
+        return maxDeth;
+    }
+
+    protected void setMaxDeth(int maxDeth) {
+        this.maxDeth = maxDeth;
     }
 }

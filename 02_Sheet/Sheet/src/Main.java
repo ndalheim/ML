@@ -39,16 +39,20 @@ public class Main {
         double avgAccuracy = 0.0;
 
         for (int i = 0; i < iterations; i++) {
+            DataSet iterationTrainingSet = new DataSet(trainingDataSet);
+
             System.out.println("Round: " +  i);
             System.out.println("Splitting data");
-            DataSet testDataSet = trainingDataSet.extractTestDataset(0.33);
+            DataSet testDataSet = iterationTrainingSet.extractTestDataset(0.33);
             DataSet predictionSet = new DataSet(testDataSet);
 
             System.out.println("Starting training");
 
             DecisionTreeModel model = new DecisionTreeModel();
-            model.trainModel(trainingDataSet, attributes, classAttribute);
-            model.printModel();
+            model.trainModel(iterationTrainingSet, attributes, classAttribute);
+            if(i == 0) {
+                model.printModel();
+            }
 
             System.out.println("Making prediction");
             model.predict(predictionSet, classAttribute);
