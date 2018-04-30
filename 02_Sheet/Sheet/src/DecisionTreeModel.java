@@ -8,7 +8,7 @@ public class DecisionTreeModel {
 
     private Node root;
 
-    private int maxDeth;
+    private int maxDepth;
 
     public void predict(DataSet predictionSet, Attribute classAttribute) {
         for (int i = 0; i < predictionSet.getRows(); i++) {
@@ -68,7 +68,7 @@ public class DecisionTreeModel {
                            Attribute classAttribute,
                            int maxDepth) {
 
-        setMaxDeth(maxDepth);
+        setMaxDepth(maxDepth);
 
         int[] validRows = new int[dataset.getRows()];
         Arrays.fill(validRows, 1);
@@ -98,6 +98,13 @@ public class DecisionTreeModel {
             } else {
                 newNode.setResultValue("Unknown");
             }
+            return;
+        }
+        if(depth == maxDepth){
+
+            double[] probs = dataset.computeProbabilities(validRows, classAttribute);
+            int index = Utils.argMax(probs);
+            newNode.setResultValue(classAttribute.getValues().get(index));
             return;
         }
 
@@ -189,11 +196,11 @@ public class DecisionTreeModel {
         this.root = root;
     }
 
-    protected int getMaxDeth() {
-        return maxDeth;
+    protected int getMaxDepth() {
+        return maxDepth;
     }
 
-    protected void setMaxDeth(int maxDeth) {
-        this.maxDeth = maxDeth;
+    protected void setMaxDepth(int maxDepth) {
+        this.maxDepth = maxDepth;
     }
 }

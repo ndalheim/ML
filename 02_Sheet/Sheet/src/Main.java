@@ -21,22 +21,26 @@ public class Main {
             int numClassAttribute = Integer.parseInt(args[1]);
             Attribute classAttribute = attributes.get(numClassAttribute);
 
-            double accuracy = multipleRun(trainingDataSet,
-                    attributes, classAttribute, 10);
+            multipleRun(trainingDataSet,
+                    attributes,
+                    classAttribute,
+                    Integer.parseInt(args[2]),
+                    Integer.parseInt(args[3]));
 
-            System.out.println("Average accuracy : " + accuracy);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static double multipleRun(DataSet trainingDataSet,
+    public static void multipleRun(DataSet trainingDataSet,
                               ArrayList<Attribute> attributes,
                               Attribute classAttribute,
+                              int maxDepth,
                               int iterations) {
 
-        double avgAccuracy = 0.0;
+        double[] accuracies = new double[iterations];
 
         for (int i = 0; i < iterations; i++) {
             DataSet iterationTrainingSet = new DataSet(trainingDataSet);
@@ -49,7 +53,13 @@ public class Main {
             System.out.println("Starting training");
 
             DecisionTreeModel model = new DecisionTreeModel();
-            model.trainModel(iterationTrainingSet, attributes, classAttribute);
+            if(maxDepth <= 0){
+                model.trainModel(iterationTrainingSet, attributes,
+                        classAttribute);
+            }else {
+                model.trainModel(iterationTrainingSet, attributes,
+                        classAttribute, maxDepth);
+            }
             if(i == 0) {
                 model.printModel();
             }
@@ -57,13 +67,16 @@ public class Main {
             System.out.println("Making prediction");
             model.predict(predictionSet, classAttribute);
 
-            double accuracy = testDataSet.computeAccuracy(predictionSet, classAttribute);
-            avgAccuracy += accuracy;
-            System.out.println("Accuracy : " + accuracy);
+            accuracies[i] = testDataSet.computeAccuracy(predictionSet, classAttribute);
+            System.out.println("Accuracy : " + accuracies[i]);
             System.out.println();
         }
 
-        return avgAccuracy / (double) iterations;
+        double mean = Utils.computeMean(accuracies);
+        double stdVar = Utils.computeStdVar(mean, accuracies);
+
+        System.out.println("Accuracy mean : " + mean);
+        System.out.println("Accuracy std. var. : " + stdVar);
     }
 
 
