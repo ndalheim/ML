@@ -2,6 +2,7 @@ import java.util.*;
 
 /**
  * This class save all dataset information of an arff file
+ *
  * Created by naedd on 22.04.2018.
  */
 public class DataSet {
@@ -11,11 +12,11 @@ public class DataSet {
     private int columns;
 
     /**
-     * Constructor
+     * Constructor of an dataset
      *
-     * @param data
-     * @param rows
-     * @param columns
+     * @param data of the arff-file
+     * @param rows is the number of instances of the arff-file
+     * @param columns is the number of attributes of the arff-file
      */
     public DataSet(String[] data, int rows, int columns) {
         this.data = data;
@@ -23,6 +24,11 @@ public class DataSet {
         this.columns = columns;
     }
 
+    /**
+     * Constructor of an dataset
+     *
+     * @param dataset of the arff-file
+     */
     public DataSet(DataSet dataset) {
         this.data = Arrays.copyOf(dataset.getData(), dataset.getData().length);
         this.rows = dataset.getRows();
@@ -33,9 +39,9 @@ public class DataSet {
     /**
      * Compute the probabilities of all valid rows to the given classAttribute
      *
-     * @param validRows
-     * @param classAttribute
-     * @return
+     * @param validRows are all valid instances which you only want to use for computation
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @return the probabilities of all valid rows
      */
     public double[] computeProbabilities(int[] validRows, Attribute classAttribute) {
 
@@ -56,11 +62,11 @@ public class DataSet {
     }
 
     /**
-     * Filter all rows with the given attribute value
+     * Filter all rows which have the given attribute value
      *
-     * @param validRow
-     * @param attribute
-     * @return ArrayList<int[]>
+     * @param validRow are all valid instances which you only want to use for computation
+     * @param attribute which you want to filter
+     * @return all rows which have the given attribute value as ArrayList<int[]>
      */
     public ArrayList<int[]> filterForAttributeValues(int[] validRow, Attribute attribute) {
 
@@ -81,7 +87,7 @@ public class DataSet {
     /**
      * Getter of rows
      *
-     * @return int
+     * @return number of rows/ instances
      */
     public int getRows() {
         return this.rows;
@@ -90,25 +96,47 @@ public class DataSet {
     /**
      * Getter of columns
      *
-     * @return int
+     * @return number of columns/ attributes
      */
     public int getColumns() {
         return this.columns;
     }
 
-
+    /**
+     * Get the content from a specific dataset entry
+     *
+     * @param attribute for the column number
+     * @param row for the row number
+     * @return the content of the specific dataset entry
+     */
     public String getEntryInDataset(Attribute attribute, int row) {
         return data[row * columns + attribute.getColumnInDataset()];
     }
 
+    /**
+     * Getter of the DataSet data
+     *
+     * @return the data of the DataSet
+     */
     protected String[] getData() {
         return data;
     }
 
+    /**
+     * Setter of the DataSet data
+     *
+     * @param data of the DataSet
+     */
     protected void setData(String[] data) {
         this.data = data;
     }
 
+    /**
+     * Randomly extract a test-set from the dataset
+     *
+     * @param percentage as seed for the size of the test-set
+     * @return the test-set as DataSet
+     */
     public DataSet extractTestDataset(double percentage) {
 
         Random random = new Random();
@@ -146,6 +174,13 @@ public class DataSet {
         return testDataSet;
     }
 
+    /**
+     * Helpmethod to copy the dataset data
+     *
+     * @param target where you want to copy the
+     * @param targetIndex which the copied data should be saved
+     * @param row where the copy should start
+     */
     protected void copyDataSetLine(String[] target, int targetIndex, int row) {
 
         int startIndex = row * columns;
@@ -156,6 +191,13 @@ public class DataSet {
         }
     }
 
+    /**
+     * Compute the accuracy of the predicted set to the classAttribute
+     *
+     * @param predictionSet is the test-set you want to compare
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @return the percentage of correct predicted class attribute values of the test-set
+     */
     public double computeAccuracy(DataSet predictionSet, Attribute classAttribute) {
         if (rows != predictionSet.rows || columns != predictionSet.columns) {
             throw new IllegalArgumentException("Datasets do not fit together.");

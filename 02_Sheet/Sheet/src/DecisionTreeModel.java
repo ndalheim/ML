@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
+ * Class to represent the model of a DecisionTree
+ *
  * Created by naedd on 29.04.2018.
  */
 public class DecisionTreeModel {
@@ -10,18 +12,40 @@ public class DecisionTreeModel {
 
     private int maxDepth;
 
+    /**
+     * Predict the class attribute values of a given test-set/ prediction-set
+     *
+     * @param predictionSet is the test-set of which you want to know the class attribute value
+     * @param classAttribute is the attribute which use to test your decision tree
+     */
     public void predict(DataSet predictionSet, Attribute classAttribute) {
         for (int i = 0; i < predictionSet.getRows(); i++) {
             predictRow(predictionSet, i * predictionSet.getColumns(), classAttribute);
         }
     }
 
+    /**
+     * Predict the class attribute value of a given row (instance)
+     *
+     * @param dataSet of the arff-file
+     * @param rowStartIndex is the row you want to start your search
+     * @param classAttribute is the attribute which use to test your decision tree
+     */
     protected void predictRow(DataSet dataSet, int rowStartIndex, Attribute classAttribute) {
 
         String value = findClassAttributeValue(root, dataSet, rowStartIndex, classAttribute);
         dataSet.getData()[rowStartIndex + classAttribute.getColumnInDataset()] = value;
     }
 
+    /**
+     * Recursive method to find the value of the class-attribute for a given node
+     *
+     * @param node which class-attribute value you want to predict
+     * @param dataSet of the arff-file
+     * @param rowStartIndex is the row you want to start your search
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @return
+     */
     protected String findClassAttributeValue(Node node, DataSet dataSet, int rowStartIndex,
                                              Attribute classAttribute) {
         if (node.isResultNode()) {
@@ -39,6 +63,12 @@ public class DecisionTreeModel {
         printModel(root.getChilds(), "");
     }
 
+    /**
+     * Print the DecisionTree Model visual on the Terminal
+     *
+     * @param childs are all nodes of the tree
+     * @param prefix is the optional symbol in front of every node
+     */
     protected void printModel(ArrayList<Node> childs, String prefix) {
         for (Node child : childs) {
             String line = prefix
@@ -55,6 +85,13 @@ public class DecisionTreeModel {
         }
     }
 
+    /**
+     * Train DecisionTree Model with maximum depth.
+     *
+     * @param dataset of the arff file
+     * @param attributes of the arff file
+     * @param classAttribute is the attribute which use to test your decision tree
+     */
     public void trainModel(DataSet dataset,
                            ArrayList<Attribute> attributes,
                            Attribute classAttribute) {
@@ -63,6 +100,14 @@ public class DecisionTreeModel {
 
     }
 
+    /**
+     * Create the root node of the DecisionTree Model and all the other nodes.
+     *
+     * @param dataset of the arff file
+     * @param attributes of the arff file
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @param maxDepth of the decisionTree
+     */
     public void trainModel(DataSet dataset,
                            ArrayList<Attribute> attributes,
                            Attribute classAttribute,
@@ -83,6 +128,17 @@ public class DecisionTreeModel {
     }
 
 
+    /**
+     * Submethod of the trainModel-method to create all the childnodes of DecisionTreeModel-root node
+     * on the remaining attributes and remaining valid rows.
+     *
+     * @param dataset of the arff file
+     * @param remainingAttributes are all attributes which are left
+     * @param validRows are all instances which are valid
+     * @param newNode is the new generated Node in the decision tree
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @param depth is the depth of the decision tree
+     */
     protected void trainModelOnSubset(DataSet dataset,
                                       ArrayList<Attribute> remainingAttributes,
                                       int[] validRows,
@@ -140,12 +196,12 @@ public class DecisionTreeModel {
     }
 
     /**
-     * Compute entropy on subset
+     * Compute the entropy on a given subset and returns it.
      *
-     * @param dataset
-     * @param validRows
-     * @param classAttribute
-     * @return double
+     * @param dataset of the arff-file
+     * @param validRows are all valid instances
+     * @param classAttribute is the attribute which use to test our decision tree
+     * @return the computed entropy for the given subset
      */
     protected double entropyOnSubset(DataSet dataset, int[] validRows, Attribute classAttribute) {
 
@@ -163,13 +219,13 @@ public class DecisionTreeModel {
     }
 
     /**
-     * Compute information gain
+     * Compute information gain for a given attribute and returns it.
      *
-     * @param dataset
-     * @param validRows
-     * @param classAttribute
-     * @param attribute
-     * @return double
+     * @param dataset of the arff-file
+     * @param validRows  are all valid instances
+     * @param classAttribute is the attribute which use to test our decision tree
+     * @param attribute for which we compute the information gain
+     * @return the information gain of the given attribute
      */
     protected double informationGain(DataSet dataset,
                                      int[] validRows,
@@ -188,18 +244,34 @@ public class DecisionTreeModel {
         return gain;
     }
 
+    /**
+     * Return the DecisionTree root node
+     * @return root node
+     */
     protected Node getRoot() {
         return root;
     }
 
+    /**
+     * Set the DecisionTree root node
+     * @param root of the DecisionTree Model
+     */
     protected void setRoot(Node root) {
         this.root = root;
     }
 
+    /**
+     * Return the max depth of the DecisionTree which was set
+     * @return the max DecisionTree depth
+     */
     protected int getMaxDepth() {
         return maxDepth;
     }
 
+    /**
+     * Set the max depth of the DecisionTree
+     * @param maxDepth of the DecisionTree
+     */
     protected void setMaxDepth(int maxDepth) {
         this.maxDepth = maxDepth;
     }

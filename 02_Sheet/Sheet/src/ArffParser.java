@@ -4,6 +4,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
+ * Class to read an Arff-File
+ *
  * Created by naedd on 29.04.2018.
  */
 public class ArffParser {
@@ -12,8 +14,8 @@ public class ArffParser {
     /**
      * Read Arff File and save all information into a dataset object.
      *
-     * @param file
-     * @return dataset
+     * @param file of the arff-file you want to use for your DecisionTree
+     * @return the parsed data from the arff-file
      * @throws Exception
      */
     public static ParsedData arffFileReader(File file) throws Exception {
@@ -67,8 +69,8 @@ public class ArffParser {
     /**
      * Parse instance line into String Array and return it.
      *
-     * @param line
-     * @return String[]
+     * @param line which is buffered from file
+     * @return row/instance as String Array
      */
     private static String[] parseInstance(String line) {
         line = line.trim();
@@ -79,9 +81,9 @@ public class ArffParser {
     /**
      * Parse Arff File Header into an Attribute.
      *
-     * @param line
-     * @param attributeNumber
-     * @return Attribute
+     * @param line            which is buffered from file
+     * @param attributeNumber is the position-number of the attribute in the arff file
+     * @return the arff file attribute as Attribute type
      */
     private static Attribute parseAttribute(String line, int attributeNumber) {
         line = line.trim();

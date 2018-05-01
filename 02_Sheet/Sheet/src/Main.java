@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.zip.DataFormatException;
 
 /**
+ * Class to build a DecisionTree on a given Arff-File
+ *
  * Created by naedd on 22.04.2018.
  */
 public class Main {
@@ -34,6 +36,16 @@ public class Main {
         }
     }
 
+    /**
+     * Compute the accuracy mean and standard deviation for the decision tree
+     * with maxDepth and n iterations
+     *
+     * @param trainingDataSet of the arff dataset
+     * @param attributes which you want to select
+     * @param classAttribute which it is used for decision
+     * @param maxDepth which the decision max. should have
+     * @param iterations how often you want to run the model
+     */
     public static void multipleRun(DataSet trainingDataSet,
                               ArrayList<Attribute> attributes,
                               Attribute classAttribute,

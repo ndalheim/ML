@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 /**
  * Class to save a attribute of an arff file
+ *
  * Created by naedd on 22.04.2018.
  */
 public class Attribute {
@@ -11,7 +12,7 @@ public class Attribute {
     private int columnInDataset;
 
     /**
-     * Constructor
+     * Constructor of an attribute object
      *
      * @param name            of the attribute
      * @param values          of the attribute (nominal)
@@ -23,26 +24,54 @@ public class Attribute {
         this.columnInDataset = attributeNumber;
     }
 
+    /**
+     * Getter of the attribute name
+     *
+     * @return the name of the attribute
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set the attribute name
+     * @param name of the attribute
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Getter of the attribute values
+     *
+     * @return the values of the attribute as ArrayList<String>
+     */
     public ArrayList<String> getValues() {
         return values;
     }
 
+    /**
+     * Setter of the attribute values
+     *
+     * @param values of the attribute
+     */
     public void setValues(ArrayList<String> values) {
         this.values = values;
     }
 
+    /**
+     * Getter of the attribute column in the arff file dataset
+     *
+     * @return the column number of the attribute in the arff file dataset
+     */
     public int getColumnInDataset() {
         return columnInDataset;
     }
 
+    /**
+     * Setter of the attribute column in the arff file dataset
+     * @param columnInDataset the column number of the attribute in the arff file dataset
+     */
     public void setColumnInDataset(int columnInDataset) {
         this.columnInDataset = columnInDataset;
     }

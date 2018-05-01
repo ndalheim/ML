@@ -5,9 +5,10 @@
 public class Utils {
 
     /**
-     * Count all validRows (instances) with ones
+     * Helpmethod to count all validRows (instances) which are represented by +1
+     * and not valid rows as -1
      *
-     * @param array
+     * @param array which you want to scan
      * @return number of valid rows
      */
     public static int countOnes(int[] array) {
@@ -18,6 +19,12 @@ public class Utils {
         return count;
     }
 
+    /**
+     * Helpmethod to get the maximal double of an array
+     *
+     * @param array which you want to scan
+     * @return the maximal number of the array
+     */
     public static int argMax(double[] array){
         double max = Double.MIN_VALUE;
         int maxIndex = -1;
@@ -30,6 +37,12 @@ public class Utils {
         return maxIndex;
     }
 
+    /**
+     * Helpmethod to get the index of the first valid row which is represented by a one
+     *
+     * @param array which you want to scan
+     * @return the first valid row
+     */
     public static int getIndexOfFirstOne(int[] array) {
         for (int i = 0; i < array.length; i++) {
             if (array[i] == 1) {
@@ -39,6 +52,12 @@ public class Utils {
         return -1;
     }
 
+    /**
+     * Helpmethod to compute the mean value of a given array.
+     *
+     * @param array which you want to scan for computation
+     * @return the mean of the array values
+     */
     public static double computeMean(double[] array){
         double mean = 0.0;
         for(int i = 0; i < array.length; i++){
@@ -47,6 +66,13 @@ public class Utils {
         return mean / (double) array.length;
     }
 
+    /**
+     * Helpmethod to compute the standard deviation of a given array
+     *
+     * @param mean of the given array
+     * @param array which you want to scan for computation
+     * @return the standard deviation of the given array
+     */
     public static double computeStdVar(double mean, double[] array){
         double stdVar = 0.0;
         for(int i = 0; i < array.length; i++){
