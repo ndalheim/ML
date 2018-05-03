@@ -1,0 +1,42 @@
+Baumtiefe 3: DecisionTree depth
+Accuracy mean : 0.8031578947368422
+Accuracy std. var. : 1.3591874422899333E-4
+
+Baumtiefe 5:
+Accuracy mean : 0.9026315789473685
+Accuracy std. var. : 9.926131117266856E-5
+
+Baumtiefe 10:
+Accuracy mean : 0.8885964912280702
+Accuracy std. var. : 1.0480147737765495E-4
+
+Baumtiefe 20:
+Accuracy mean : 0.8836842105263157
+Accuracy std. var. : 1.2499230532471558E-4
+
+Wir haben den Algorithmus für 4 verschienede Baumtiefen berechnet. Das beste Ergebnis haben wir mit Baumtiefe 5 erreicht, da war die durchschnittliche accuracy mit 90,3% am höchsten und die durchschnittliche standardabweichung am kleinsten ist. Den schlechtesten wert hatten wir mit Baumtiefe 3. Dort sind nur 80,3% der Vorhersagen im Durchschnitt richtig auch die Standartabweichung war dort am höchsten mit 1,36*10^-4. 
+
+Für Baumtiefe 10 und 20 war das Ergebnis relativ gleich mit einer durchschnittlichen accurancy von ca 88%. Allerdings war die Standartabweichung bei Baumtiefe 20 relativ hoch mit 1,25*10^-4. Man kann also nicht behaupten, dass je tiefer der Baum ist, desto genauer das Ergebnis ist. Ganz im Gegenteil werden die Vorhersagen ab einer gewissen Tiefe immer schlechter.
+Wir haben den algorithmus mit 10 Iterationen ausgeführt.
+
+We executed the algorithm for 4 different DecisionTree depths and for each depth we made 10 iterations. We got the best result with depth = 5. The accuracy mean is the highest with 90,26% and the accuracy deviation the lowest with 9.926*10^-5. We got the worst result with depth = 3.  The accuracy mean is the lowest with 80,31% and the accuracy deviation the highest with 1.359*10^-4. 
+
+For DecisionTree depth = 10 and 20 the results are relativ similar with accuracy mean = ~88%. The accuracy deviation for depth = 10 is relativ low with 1.048*10^-4 and for depth 20 are relativ high with 1.249*10^-4.
+
+Conclusion:
+We can not say that the deeper the DecisionTree is the better the results are.
+We observe that their is a break point for the depth where the result get more worst than better.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
