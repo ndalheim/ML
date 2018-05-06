@@ -1,0 +1,99 @@
+
+
+
+Task 1)
+
+a)
+Random Forest stellt eine Erweiterung von Bagging (bootstrap aggregation) dar. Bei Random Forest werden die Trainingsdatensätze zunächst mit Bagging erzeugt (Sampling with replacement). Random Forest fügt nun einen zusätzlichen Schritt im Lernprozess eines Entscheidungsbaumes ein. Nachdem ein Feature (nächster Knoten im Baum) gewählt wurde, wird das neue Datenset nochmals zufällig gefiltert(Es werden nochmals samples gezogen bwz. ein Subset erzeugt). Dieser neu enstandene Datensatz wird für den weiteren Algorithmus verwendet.
+
+
+b)
+
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 1 1
+Bagging iteration : 1
+Num RF iterations : 1
+Average accuracy : 84.8639455782313
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 5 1
+Bagging iteration : 5
+Num RF iterations : 1
+Average accuracy : 92.34693877551021
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 10 1
+Bagging iteration : 10
+Num RF iterations : 1
+Average accuracy : 93.02721088435374
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 20 1
+Bagging iteration : 20
+Num RF iterations : 1
+Average accuracy : 92.00680272108843
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 30 1
+Bagging iteration : 30
+Num RF iterations : 1
+Average accuracy : 93.19727891156462
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 40 1
+Bagging iteration : 40
+Num RF iterations : 1
+Average accuracy : 92.17687074829932
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 50 1
+Bagging iteration : 50
+Num RF iterations : 1
+Average accuracy : 94.5578231292517
+
+Die accuracy ist nicht ganz stabil und fluktuiert, aber im Mittel (Aufgabenteil c)) ist sichtbar, dass diese im Durchsnitt stabiler ist.
+
+
+c)
+
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 1 10
+Bagging iteration : 1
+Num RF iterations : 10
+Average accuracy : 86.39455782312926
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 5 10
+Bagging iteration : 5
+Num RF iterations : 10
+Average accuracy : 91.156462585034
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 10 10
+Bagging iteration : 10
+Num RF iterations : 10
+Average accuracy : 92.34693877551022
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 20 10
+Bagging iteration : 20
+Num RF iterations : 10
+Average accuracy : 92.00680272108843
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 30 10
+Bagging iteration : 30
+Num RF iterations : 10
+Average accuracy : 93.5374149659864
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 40 10
+Bagging iteration : 40
+Num RF iterations : 10
+Average accuracy : 94.7278911564626
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 50 10
+Bagging iteration : 50
+Num RF iterations : 10
+Average accuracy : 93.36734693877553
+PS C:\Users\ken\uni\08_UNI_SS_18\ML\03_Sheet> java -jar .\Task1.jar ..\data\car.arff 6 100 10
+Bagging iteration : 100
+Num RF iterations : 10
+Average accuracy : 93.36734693877553
+
+Die Erkenntnis ist, dass die Accuracy stabiler wird. Sie scheint außerdem ein Maximum bei 40 Bagging iterations zu hhaben.
+
+Unser Baum vom letzten Blatt hate bei Baumtiefe 5 eine maximale Accuracy von 0.9026. Durch Bagging konnte die Accuracy also um ca. 4 - 5 % gesteigert werden.
+
+
+
+
+
+
+
+
+
+
+
+
+Task 4)
+Bei Bootstrap ist 0.632 die Wahrscheinlichkeit eines Datenpunktes im Trainingsdatensatz zu landen. Dies gilt jedoch nur für große n.
+
+
+
+
