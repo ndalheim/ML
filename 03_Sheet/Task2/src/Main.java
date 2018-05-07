@@ -34,7 +34,8 @@ public class Main {
                     attributes,
                     classAttribute,
                     Integer.parseInt(args[2]),
-                    Integer.parseInt(args[3]));
+                    Integer.parseInt(args[3]),
+                    Integer.parseInt(args[4]));
 
 
 
@@ -54,10 +55,11 @@ public class Main {
      * @param iterations how often you want to run the model
      */
     public static void multipleRun(WeightedDataSet trainingDataSet,
-                              ArrayList<Attribute> attributes,
-                              Attribute classAttribute,
-                              int boostIterations,
-                              int iterations) {
+                                    ArrayList<Attribute> attributes,
+                                    Attribute classAttribute,
+                                    int boostIterations,
+                                    int iterations,
+                                    int maxDepth) {
 
         double[] accuracies = new double[iterations];
 
@@ -74,7 +76,7 @@ public class Main {
 
             AdaBoostDT model = new AdaBoostDT(iterationTrainingSet,
                     attributes, classAttribute);
-            model.modelGeneration(boostIterations);
+            model.modelGeneration(boostIterations, maxDepth);
 
             System.out.println("Making prediction");
             model.predict(predictionSet);

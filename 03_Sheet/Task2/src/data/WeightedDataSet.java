@@ -35,6 +35,10 @@ public class WeightedDataSet extends DataSet {
         Arrays.fill(getWeights(), weight);
     }
 
+    public void initializeWeightsWithZero() {
+        setWeights(new double[getRows()]);
+    }
+
 
     /**
      * Sample the dataset according to there respective weights.

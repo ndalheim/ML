@@ -31,60 +31,64 @@ public class AdaBoostDT {
     }
 
 
-    public void modelGeneration(int maxIterations){
+    public void modelGeneration(int maxIterations, int maxDepth){
 
-        setModels(new DecisionTreeModel[maxIterations]);
-        setModelErrors(new double[maxIterations]);
+        models = new DecisionTreeModel[maxIterations];
+        modelErrors = new double[maxIterations];
 
-        getWeightedDataSet().initializeWeightsEqually();
+        weightedDataSet.initializeWeightsEqually();
 
-        WeightedDataSet dataSetToUse = getWeightedDataSet();
         for(int i = 0; i < maxIterations; i++){
 
-            WeightedDataSet sample = dataSetToUse.sample();
-            WeightedDataSet samplePred = new WeightedDataSet(sample);
+            WeightedDataSet sample = weightedDataSet.sample();
+            WeightedDataSet prediction = new WeightedDataSet(weightedDataSet);
 
-            getModels()[i] = new DecisionTreeModel();
-            getModels()[i].trainModel(sample, getAttributes(), getClassAttribute(), 5);
-            getModels()[i].predict(samplePred, getClassAttribute());
+            models[i] = new DecisionTreeModel();
+            models[i].trainModel(sample, attributes, classAttribute, maxDepth);
+            models[i].predict(prediction, classAttribute);
+            numModels++;
 
-            getModelErrors()[i] = sample.computeModelError(samplePred,
-                    getClassAttribute());
+            modelErrors[i] = sample.computeModelError(prediction,
+                    classAttribute);
 
-            if(getModelErrors()[i] == 0 || getModelErrors()[i] >= 0.5){
-                getModels()[i] = null;
-                getModelErrors()[i] = 0.0;
+            if(modelErrors[i] == 0 || modelErrors[i] >= 0.5){
+                if(numModels > 1) {
+                    models[i] = null;
+                    modelErrors[i] = 0.0;
+                    numModels--;
+                }
                 break;
             }
-            sample.updateWeights(samplePred, getClassAttribute(),
-                    getModelErrors()[i]);
-            
-            dataSetToUse = sample;
-            setNumModels(getNumModels() + 1);
+
+            weightedDataSet.updateWeights(prediction, classAttribute,
+                    modelErrors[i]);
         }
     }
 
     public void predict(WeightedDataSet predictionDataSet){
 
+        predictionDataSet.initializeWeightsWithZero();
+
         PredictionHelper[] predictionHelpers = new PredictionHelper[predictionDataSet.getRows()];
         for(int i = 0; i < predictionDataSet.getRows(); i++){
-            predictionHelpers[i] = new PredictionHelper(getClassAttribute());
+            predictionHelpers[i] = new PredictionHelper(classAttribute);
         }
 
-        for(int i = 0; i < getNumModels(); i++){
+        for(int i = 0; i < numModels; i++){
 
-            getModels()[i].predict(predictionDataSet, getClassAttribute());
+            models[i].predict(predictionDataSet, classAttribute);
 
             for(int j = 0;  j < predictionDataSet.getRows(); j++){
                 predictionHelpers[j].updateWeight(
-                        predictionDataSet.getEntryInDataSet(getClassAttribute(), j),
-                        getModelErrors()[i]);
+                        predictionDataSet.getEntryInDataSet(classAttribute, j),
+                        modelErrors[i]);
             }
         }
         for(int i = 0; i < predictionHelpers.length; i++){
             predictionHelpers[i].predict(predictionDataSet, i);
         }
     }
+
 
     public DecisionTreeModel[] getModels() {
         return models;
@@ -134,6 +138,7 @@ public class AdaBoostDT {
         this.numModels = numModels;
     }
 
+
     private class PredictionHelper {
 
         private Attribute classAttribute;
@@ -146,31 +151,15 @@ public class AdaBoostDT {
 
         public void updateWeight(String value, double modelError){
 
-            int valueIndex = getClassAttribute().getValues().indexOf(value);
-            getWeights()[valueIndex] += - Math.log( modelError / (1 - modelError));
+            int valueIndex = classAttribute.getValues().indexOf(value);
+            weights[valueIndex] += - Math.log( modelError / (1 - modelError));
         }
 
         public void predict(WeightedDataSet predictionSet, int row){
-            int maxIndex = Utils.argMax(getWeights());
-            predictionSet.setEntryInDataSet(getClassAttribute(),
-                    row, getClassAttribute().getValues().get(maxIndex),
-                    getWeights()[maxIndex]);
-        }
-
-        public Attribute getClassAttribute() {
-            return classAttribute;
-        }
-
-        public void setClassAttribute(Attribute classAttribute) {
-            this.classAttribute = classAttribute;
-        }
-
-        public double[] getWeights() {
-            return weights;
-        }
-
-        public void setWeights(double[] weights) {
-            this.weights = weights;
+            int maxIndex = Utils.argMax(weights);
+            predictionSet.setEntryInDataSet(classAttribute,
+                    row, classAttribute.getValues().get(maxIndex),
+                    weights[maxIndex]);
         }
     }
 

@@ -4,7 +4,7 @@
 Task 1)
 
 a)
-Random Forest stellt eine Erweiterung von Bagging (bootstrap aggregation) dar. Bei Random Forest werden die Trainingsdatensätze zunächst mit Bagging erzeugt (Sampling with replacement). Random Forest fügt nun einen zusätzlichen Schritt im Lernprozess eines Entscheidungsbaumes ein. Nachdem ein Feature (nächster Knoten im Baum) gewählt wurde, wird das neue Datenset nochmals zufällig gefiltert(Es werden nochmals samples gezogen bwz. ein Subset erzeugt). Dieser neu enstandene Datensatz wird für den weiteren Algorithmus verwendet.
+Random Forest stellt eine Erweiterung von Bagging (bootstrap aggregation) dar. Bei Random Forest werden die Trainingsdatensätze zunächst mit Bagging erzeugt (Sampling with replacement). Random Forest fügt nun einen zusätzlichen Schritt im Lernprozess eines Entscheidungsbaumes ein. Nachdem ein Feature (nächster Knoten im Baum) gewählt wurde, wird das neue Datenset nochmals gefiltert. Dieses mal jedoch nach Attributen. Hier werden nach Zufall Attribute entfernt. Dieser neu enstandene Datensatz wird für den weiteren Algorithmus verwendet.
 
 
 b)
@@ -82,14 +82,47 @@ Unser Baum vom letzten Blatt hate bei Baumtiefe 5 eine maximale Accuracy von 0.9
 
 
 
+Task 2)
+
+java -jar .\Task2.jar ..\data\car.arff 6 50 10 <max depth>
+
+Tiefe 1 :
+Accuracy mean : 0.7052631578947368
+Accuracy std. var. : 1.6066481994459828E-4
+
+Tiefe 2:
+Accuracy mean : 0.5252631578947369
+Accuracy std. var. : 0.09194041243459525
+
+Tiefe 3:
+Accuracy mean : 0.8277192982456141
+Accuracy std. var. : 1.4638350261618948E-4
+
+Tiefe 4:
+Accuracy mean : 0.8903508771929826
+Accuracy std. var. : 2.2606955986457359E-4
+
+Tiefe 5:
+Accuracy mean : 0.9043859649122806
+Accuracy std. var. : 8.879655278547234E-5
+
+Tiefe 6:
+Accuracy mean : 0.904561403508772
+Accuracy std. var. : 2.64204370575562E-4
+
+
+
+Ab 6 ist redundant, da der Baum maximal Tiefe 6 erreicht.
+
+Boosting bringt ab einer gewissen Baumtiefe eine Mehrwert, kann jedoch auch bei zu geringer Tiefe schlechtere Ergebnisse liefern.
 
 
 
 
 
+Task 3)
 
-
-
+In diesem Fall ist der Model-Error bereits in der ersten iteration 0 und boosting bricht ab. Somit wird nur ein Model verwendet und boosting bringt keine Verbesserung.
 
 Task 4)
 Bei Bootstrap ist 0.632 die Wahrscheinlichkeit eines Datenpunktes im Trainingsdatensatz zu landen. Dies gilt jedoch nur für große n.
