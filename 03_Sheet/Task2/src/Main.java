@@ -10,12 +10,16 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * Class to build a DecisionTree on a given Arff-File
+ * Class to build the AdaBoost algorithm with the DecisionTree Classifier
  *
  * Created by naedd on 22.04.2018.
  */
 public class Main {
 
+    /**
+     * Make multiple runs of the DecisionTree Classifier as implemented in the AdaBoost algorithm
+     * @param args
+     */
     public static void main(String... args) {
 
         System.out.println("File path: " + args[0]);
@@ -46,13 +50,14 @@ public class Main {
 
     /**
      * Compute the accuracy mean and standard deviation for the decision tree
-     * with maxDepth and n iterations
+     * with maxDepth and n iterations in the AdaBoost way
      *
-     * @param trainingDataSet of the arff dataset
+     * @param trainingDataSet of the arff dataset which is tranformed to a WeightedDataSet
      * @param attributes which you want to select
      * @param classAttribute which it is used for decision
      * @param boostIterations Maximal number of used models inside of boost
      * @param iterations how often you want to run the model
+     * @param maxDepth of the DecisionTree depth
      */
     public static void multipleRun(WeightedDataSet trainingDataSet,
                                     ArrayList<Attribute> attributes,

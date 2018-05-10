@@ -45,6 +45,9 @@ public class Node {
         childs.add(node);
     }
 
+    /**
+     * Remove the last child node of the decisionTree
+     */
     public void removeLastChild() {
         childs.remove(childs.size() - 1);
     }

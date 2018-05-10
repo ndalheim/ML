@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.util.Random;
 
 /**
+ * Class to run RandomForest of Weka
  * Created by ken on 06.05.2018.
  */
 public class Main {
@@ -44,6 +45,12 @@ public class Main {
     }
 
 
+    /**
+     * Split the dataset into training-set and test-set
+     * @param data from the arff-file
+     * @param splitPercentage how big the training-set should be
+     * @return the training-set and test-set as Instances
+     */
     private static Instances[] splitTrainTest(Instances data,
                                               double splitPercentage) {
 

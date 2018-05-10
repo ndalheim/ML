@@ -1,5 +1,5 @@
-
-
+ML - Ken Moller, Nadine Dalheimer, Alexander Kindl
+Sheet 03
 
 Task 1)
 
@@ -111,12 +111,9 @@ Accuracy mean : 0.904561403508772
 Accuracy std. var. : 2.64204370575562E-4
 
 
-
 Ab 6 ist redundant, da der Baum maximal Tiefe 6 erreicht.
 
 Boosting bringt ab einer gewissen Baumtiefe eine Mehrwert, kann jedoch auch bei zu geringer Tiefe schlechtere Ergebnisse liefern.
-
-
 
 
 

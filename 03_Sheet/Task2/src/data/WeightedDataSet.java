@@ -5,36 +5,61 @@ import java.util.HashSet;
 import java.util.Random;
 
 /**
+ * Class to represent weighted Datasets
  * Created by ken on 06.05.2018.
  */
 public class WeightedDataSet extends DataSet {
 
-
     private double[] weights;
 
-
+    /**
+     * Constructor of an WeightedDataSet
+     *
+     * @param data    of the arff file
+     * @param weights for every instance
+     * @param rows    number of instances
+     * @param columns number of attributes
+     */
     public WeightedDataSet(String[] data, double[] weights, int rows, int columns) {
         super(data, rows, columns);
         this.weights = weights;
     }
 
+    /**
+     * Constructor of an WeightedDataSet
+     *
+     * @param data    of the arff file
+     * @param rows    number of instances
+     * @param columns number of attributes
+     */
     public WeightedDataSet(String[] data, int rows, int columns) {
         super(data, rows, columns);
         initializeWeightsEqually();
     }
 
+    /**
+     * Constructor of an WeightedDataSet
+     *
+     * @param dataset of the arff file
+     */
     public WeightedDataSet(WeightedDataSet dataset) {
         super(dataset);
         this.weights = Arrays.copyOf(dataset.getWeights(), dataset.getWeights().length);
     }
 
 
+    /**
+     * Set every instance weight to 1.0
+     */
     public void initializeWeightsEqually() {
         setWeights(new double[getRows()]);
         double weight = 1.0 / getWeights().length;
         Arrays.fill(getWeights(), weight);
     }
 
+    /**
+     * Initialize instance weights to zero
+     */
     public void initializeWeightsWithZero() {
         setWeights(new double[getRows()]);
     }
@@ -54,7 +79,7 @@ public class WeightedDataSet extends DataSet {
         for (int i = 0; i < getRows(); i++) {
 
             double value = random.nextDouble();
-            if(value == 1){
+            if (value == 1) {
                 i--;
                 continue;
             }
@@ -73,6 +98,12 @@ public class WeightedDataSet extends DataSet {
         return copy;
     }
 
+    /**
+     * Copy only specific indices/rows/instances of this WeightedDataSet
+     *
+     * @param indices of the the copied WeightedDataSet
+     * @return WeightedDataSet with the specific indices
+     */
     private WeightedDataSet copyIndices(int indices[]) {
 
         String[] data = new String[getData().length];
@@ -88,52 +119,83 @@ public class WeightedDataSet extends DataSet {
         return wds;
     }
 
-    public void normalizeWeights(){
+    /**
+     * Normilize the weights of all instances.
+     */
+    public void normalizeWeights() {
 
         double sum = 0.0;
-        for(int i = 0; i < getWeights().length; i++){
+        for (int i = 0; i < getWeights().length; i++) {
             sum += getWeights()[i];
         }
-        for(int i = 0; i < getWeights().length; i++){
+        for (int i = 0; i < getWeights().length; i++) {
             getWeights()[i] /= sum;
         }
     }
 
 
+    /**
+     * Update the new weights of every instance row
+     *
+     * @param prediction     the new WeightedDataSet
+     * @param classAttribute of the arff file
+     * @param modelError     of the dataset
+     */
     public void updateWeights(WeightedDataSet prediction,
                               Attribute classAttribute,
-                              double modelError){
+                              double modelError) {
 
         int classIndex = classAttribute.getColumnInDataset();
-        for(int i = 0; i < getRows(); i++){
-            if(getData()[i * getColumns() + classIndex]
-                    .equals(prediction.getData()[i * getColumns() + classIndex])){
+        for (int i = 0; i < getRows(); i++) {
+            if (getData()[i * getColumns() + classIndex]
+                    .equals(prediction.getData()[i * getColumns() + classIndex])) {
                 getWeights()[i] *= modelError / (1.0 - modelError);
             }
         }
     }
 
+    /**
+     * Compute the model error of the predicted WeightedDataSet
+     *
+     * @param prediction     the predicted WeightedDataSet
+     * @param classAttribute of the arff file
+     * @return the model error of the predicted WeightedDataSet
+     */
     public double computeModelError(WeightedDataSet prediction,
-                                    Attribute classAttribute){
+                                    Attribute classAttribute) {
 
         double error = 0;
         int classIndex = classAttribute.getColumnInDataset();
-        for(int i = 0; i < getRows(); i++){
-            if(!getData()[i * getColumns() + classIndex]
-                    .equals(prediction.getData()[i * getColumns() + classIndex])){
+        for (int i = 0; i < getRows(); i++) {
+            if (!getData()[i * getColumns() + classIndex]
+                    .equals(prediction.getData()[i * getColumns() + classIndex])) {
                 error += getWeights()[i];
             }
         }
         return error;
     }
 
+    /**
+     * Set the value and weight of a specific entry of the dataSet
+     *
+     * @param attribute as column of the entry
+     * @param row       of the entry
+     * @param value     which the entry should have
+     * @param weight    which the entry should have
+     */
     public void setEntryInDataSet(Attribute attribute, int row, String value, double weight) {
         super.setEntryInDataSet(attribute, row, value);
         getWeights()[row] = weight;
     }
 
 
-    public WeightedDataSet copyDataSet(double percentage){
+    /**
+     * Copy a specific percentage proportion of a WeightedDataSet
+     *
+     * @param percentage how much you want to copy
+     * @return the new generated WeightedDataSet
+     */
+    public WeightedDataSet copyDataSet(double percentage) {
 
         Random random = new Random();
         int dataSetRows = (int) ((double) getRows() * percentage);

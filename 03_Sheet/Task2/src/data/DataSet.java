@@ -197,6 +197,12 @@ public class DataSet {
         }
     }
 
+    /**
+     * Copy the instance of a specific dataset row
+     * @param target the object where to save the copied instance
+     * @param targetRow the new row index
+     * @param row of the to copy row
+     */
     protected void copyDataSetRow(String[] target, int targetRow, int row) {
 
         int targetIndex = targetRow * columns;

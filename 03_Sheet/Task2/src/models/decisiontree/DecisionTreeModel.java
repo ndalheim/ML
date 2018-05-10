@@ -64,6 +64,9 @@ public class DecisionTreeModel {
     }
 
 
+    /**
+     * Print the given DecisionTree Model into the terminal
+     */
     public void printModel() {
 
         printModel(root.getChilds(), "");
