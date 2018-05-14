@@ -67,6 +67,8 @@ public class Main {
                                     int maxDepth) {
 
         double[] accuracies = new double[iterations];
+        double boostingDepthAverage = 0.0;
+
 
         for (int i = 0; i < iterations; i++) {
             WeightedDataSet iterationTrainingSet = new WeightedDataSet(trainingDataSet);
@@ -82,6 +84,7 @@ public class Main {
             AdaBoostDT model = new AdaBoostDT(iterationTrainingSet,
                     attributes, classAttribute);
             model.modelGeneration(boostIterations, maxDepth);
+            boostingDepthAverage += model.getNumModels();
 
             System.out.println("Making prediction");
             model.predict(predictionSet);
@@ -93,9 +96,11 @@ public class Main {
 
         double mean = Utils.computeMean(accuracies);
         double stdVar = Utils.computeStdVar(mean, accuracies);
+        boostingDepthAverage /= iterations;
 
         System.out.println("Accuracy mean : " + mean);
         System.out.println("Accuracy std. var. : " + stdVar);
+        System.out.println("Average boosting depth : " + boostingDepthAverage);
     }
 
 

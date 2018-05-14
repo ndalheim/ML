@@ -145,13 +145,14 @@ public class AdaBoostDT {
         this.modelErrors = modelErrors;
     }
 
-    private int getNumModels() {
+    public int getNumModels() {
         return numModels;
     }
 
     private void setNumModels(int numModels) {
         this.numModels = numModels;
     }
+
 
 
     /**
