@@ -1,0 +1,54 @@
+
+
+Task 1 )
+--------
+
+Das Ergebnisse des ausgeführten Scriptes sind in Task1.png zu finden.
+
+Die anzunähernde Funktion ist ein Auschnitt einer Sinusfunktion. Um diesen Ausschnitt möglichst gut anzunähern sollte man mindestens eine Funktion von Grad 5 benutzen (Der Sinus-Ausschnitt weist 4 Kurven auf).
+
+Daher dominiert bei d = 1, .. 3 der Biasfehler. Bei 1 und 2 wird sogar noch versucht min linearen und quadratischen Funktionen den Sinus-Ausschnitt anzunähern. Da diese Funktionstypen keine 2 Kurven abbilden können, ergibt sich automatisch ein systematischer Fehler durch die Annahme (Bias). Weiter ist die Varianz natürlich auch schlecht.
+
+Ab einem d von 3 verbessern sich die Ergebnisse. Jedoch gibt es an den Rändern immer noch einen systemanischen Fehler. Die Varianz bleibt auch bei diesen Bildern (3,4) noch deutlich sichtbar, sodass mehrere unterschiedliche Funktionen erkennbar sind. 
+
+Ab einem d von 5 sieht die Annhäerung sehr gut aus. Der Bias und die Varianz sind fast nicht mehr sichtbar und mehrere Funktionen sind fast nicht mehr zu erkenne. Hier bleibt also lediglich der irreduzible Fehler sichtbar.
+
+
+Task 2 )
+--------
+
+ROC:
+
+TP                        TP : True Positive      FP : False Positive
+|          x
+|    x x x x
+|  x x
+|  x
+|x x
+ 0 --------- FP
+
+Ein guter Lernen zeichnet sich bei der ROC dadurch aus, dass der Graph schnell nach oben steigt. Da die Datenpunkte nach der Vorhersage sortiert sind, ist eine ROC besser, wenn die FP Werte erst so spät wie möglich auftauchen.
+
+In unseren Beispiel waren die Werte auf den Übungsblatt bereits mithilfe der Prediction sortiert, daher war dieser Wert nicht weiter notwendig. Am Anfang steigen die Werte sehr stark, wodurch der Algorithmus sehr gut erscheint. Gegen ende tauchen jedoch nochmals FP Werte auf. Das heißt, möchten wir TP Raten von 0 bis 80%, dann ist unser Lerner sehr gut dafür geeignet. Da er auf diesem Weg nur 2 FP Werte hat ( FP Rate 40 %). Möchte man jedoch eine höhre TP Rate muss man sich mit einer höheren FP Rate anfreunden.
+
+
+Task 3 )
+--------
+
+Accuracy mean : 0.9340233902406236
+Accuracy std. var. : 2.097802820560307E-4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
