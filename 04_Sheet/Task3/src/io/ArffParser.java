@@ -130,7 +130,7 @@ public class ArffParser {
                                ArrayList<Attribute> attributes,
                                DataSet dataSet) throws IOException {
 
-        BufferedWriter bw = new BufferedWriter(new FileWriter(path + File.separator + filename));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(path + File.separator + filename + ".arff"));
         String header = createArffHeader(relName, attributes);
         String data = createArffData(dataSet);
         bw.write(header);
@@ -150,15 +150,26 @@ public class ArffParser {
         for(int i = 0; i < attributes.size(); i++){
             sb.append("@attribute ");
             sb.append(attributes.get(i).getName());
-            sb.append(" {");
-            for(int j = 0; j < attributes.get(i).getValues().size() - 1; j++){
-                sb.append(attributes.get(i).getValues().get(j));
-                sb.append(",");
-            }
-            sb.append(attributes.get(i).getValues().get(attributes.get(i).getValues().size() - 1));
-            sb.append("}\n");
+            sb.append(" ");
+            sb.append(getAttributeContent(attributes.get(i)));
         }
         return sb.toString();
+    }
+
+    public static String getAttributeContent(Attribute attribute){
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        for(int j = 0; j < attribute.getValues().size() - 1; j++){
+            sb.append(attribute.getValues().get(j));
+            sb.append(", ");
+        }
+        sb.append(attribute.getValues().get(attribute.getValues().size() - 1));
+        sb.append("}\n");
+        String result = sb.toString();
+        if("{real}\n".equals( result)){
+            return "real\n";
+        }
+        return result;
     }
 
     public static String createArffData(DataSet dataSet){

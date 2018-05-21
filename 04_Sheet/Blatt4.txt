@@ -38,6 +38,52 @@ Task 3 )
 Accuracy mean : 0.9340233902406236
 Accuracy std. var. : 2.097802820560307E-4
 
+Task 4 )
+--------
+
+a)
+
+Car :
+RF Average accuracy : 94.67771205807233
+J48 Average accuracy : 92.01303938701439
+RF incorrect : 9.2
+J48 incorrect : 13.8
+
+Diabetes :
+RF Average accuracy : 76.04579630895421
+J48 Average accuracy : 73.96274777853725
+RF incorrect : 18.4
+J48 incorrect : 20.0
+
+
+c)
+
+Wie in den oben dargestellten Ergebnissen zu sehen ist, erzielt Random Forest eine kleine aber doch signifikante Verbesserng gegenüber J48.
+
+
+Task 5 )
+--------
+
+Auf dem Aufgabenbaltt wir die Formel P / ( N + P ) angeführt. Hierbei steht P für alle richtig klassifiezierten Instanzen des Lernes und N für alle falsch klassifizierten Instanzen. Betrachte nun P. Die richtig klassifzierten Instanzen ergeben sich aus der Summe von P = TP + TN und die falsch klassifizierten Instanzen ergeben sich durch die Summe von N = FP + FN. Damit lässt sich die Formel umschreiben zu (TP + TN) / (TP + TN + FP + FN). TP ist hierbei mit Sensitivität in Verbindung zu bringen und TN mit der Spezifität. Die Formel gleicht weiterhin der gegebenen Definition für eine binäre accuracy.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
