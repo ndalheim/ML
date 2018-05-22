@@ -3,6 +3,7 @@ import io.ArffParser;
 import io.ParsedData;
 import models.decisiontree.DecisionTreeModel;
 import weka.classifiers.Evaluation;
+import weka.classifiers.evaluation.Prediction;
 import weka.classifiers.trees.J48;
 import weka.classifiers.trees.RandomForest;
 import weka.core.Instances;
@@ -160,6 +161,8 @@ public class Main {
         double j48_accuracy = 0;
         double rf_incorrect = 0;
         double j48_incorrect = 0;
+        ArrayList<Prediction> rf_pred = null;
+        ArrayList<Prediction> j48_pred = null;
         for (int i = 0; i < folds; i++) {
             RandomForest rf = new RandomForest();
             rf.buildClassifier(train[i]);
@@ -168,6 +171,7 @@ public class Main {
             eval.evaluateModel(rf, test[i]);
             rf_accuracy += eval.pctCorrect();
             rf_incorrect += eval.incorrect();
+            rf_pred = eval.predictions();
 
             J48 j = new J48();
             j.buildClassifier(train[i]);
@@ -176,6 +180,7 @@ public class Main {
             eval2.evaluateModel(j, test[i]);
             j48_accuracy += eval2.pctCorrect();
             j48_incorrect += eval2.incorrect();
+            j48_pred = eval2.predictions();
         }
 
         rf_accuracy /= folds;
@@ -187,6 +192,33 @@ public class Main {
         System.out.println("RF incorrect : " + rf_incorrect);
         System.out.println("J48 incorrect : " + j48_incorrect);
 
+        int[] ns = numbers(rf_pred, j48_pred);
+
+
+        System.out.println("\n");
+        System.out.println("McNemar:");
+        System.out.println("--------------------");
+        System.out.println(ns[0] + "\t|\t" + (double) (ns[1] + ns[2]) / 2.0);
+        System.out.println("--------------------");
+        System.out.println((double) (ns[1] + ns[2]) / 2.0 + "\t|\t" + ns[3]);
+        System.out.println("---------------------");
+
+    }
+
+    private static int[] numbers(ArrayList<Prediction> fp, ArrayList<Prediction> sc){
+
+        int[] ns = new int[4];
+        for(int i = 0; i < fp.size(); i++){
+
+            boolean fR = fp.get(i).actual() == fp.get(i).predicted() ? true : false;
+            boolean sR = sc.get(i).actual() == sc.get(i).predicted() ? true : false;
+
+            if(!fR && !sR) ns[0]++;
+            if(!fR &&  sR) ns[1]++;
+            if(fR &&  !sR) ns[2]++;
+            if(fR &&  sR) ns[3]++;
+        }
+        return ns;
     }
 
 
