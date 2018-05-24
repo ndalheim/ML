@@ -124,6 +124,15 @@ public class ArffParser {
     }
 
 
+    /**
+     * Save a given dataset with its ArrayList of attributes as arff file
+     * @param path of directory where you want to save the arff file
+     * @param filename of the arff file
+     * @param relName is the name of the relation in the arff file
+     * @param attributes is the list of all arff attributes
+     * @param dataSet is the list of all instances/rows
+     * @throws IOException
+     */
     public static void saveArffFile(String path,
                                String filename,
                                String relName,
@@ -140,6 +149,12 @@ public class ArffParser {
     }
 
 
+    /**
+     * Helper method to parse the header of an arff file
+     * @param relName is the name of the relation in the arff file
+     * @param attributes is the list of all arff attributes
+     * @return a parsed string which contains all arff header information
+     */
     public static String createArffHeader(String relName, ArrayList<Attribute> attributes){
 
         StringBuilder sb = new StringBuilder();
@@ -156,6 +171,11 @@ public class ArffParser {
         return sb.toString();
     }
 
+    /**
+     * Helper method to get the attribute values of a single attribute
+     * @param attribute which values you want to read out and parse
+     * @return a string with all values of the attribute
+     */
     public static String getAttributeContent(Attribute attribute){
         StringBuilder sb = new StringBuilder();
         sb.append("{");
@@ -172,6 +192,11 @@ public class ArffParser {
         return result;
     }
 
+    /**
+     * Helper method to parse the data of a arff file to string
+     * @param dataSet which you want to parse
+     * @return a string with all data of the arff file
+     */
     public static String createArffData(DataSet dataSet){
         StringBuilder sb = new StringBuilder();
         sb.append("@data\n");

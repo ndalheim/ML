@@ -65,6 +65,16 @@ public class Main {
     }
 
 
+    /**
+     * Build the folds for cross-validation for a given arff file
+     * @param path of directory where you want to save the arff file
+     * @param relName is the name of the relation in the arff file
+     * @param attributes is the list of all arff attributes
+     * @param classAttribute of the arff file
+     * @param dataSet is the data of the arff file
+     * @param folds is the number of folds you want for cross validation
+     * @throws Exception
+     */
     public static void buildFolds(String path,
                            String relName,
                            ArrayList<Attribute> attributes,
@@ -133,6 +143,15 @@ public class Main {
         System.out.println("Accuracy std. var. : " + stdVar);
     }
 
+    /**
+     *
+     * @param directory of the arff file
+     * @param relName of the arff file
+     * @param pathToCompleteData where you want to save your results
+     * @param folds Number of folds you want for cross-validation
+     * @param classIndex of the classAttribute
+     * @throws Exception
+     */
     public static void runRfAndJ48(String directory,
                             String relName,
                             String pathToCompleteData,

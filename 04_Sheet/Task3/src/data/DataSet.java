@@ -260,6 +260,13 @@ public class DataSet {
         return new WeightedDataSet(getData(), getRows(), getColumns());
     }
 
+    /**
+     * Build a FoldDataSetTuple for the given Class attribute value
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @param k is the array position of the special class attribute value
+     * @return a fold dataset tuple
+     * @throws Exception
+     */
     public FoldDataSetsTuple buildFolds(Attribute classAttribute, int k) throws Exception {
 
         this.shuffle();
@@ -279,6 +286,12 @@ public class DataSet {
     }
 
 
+    /**
+     * Splits the entire dataset into a list of datasets based on the value of the class attribute
+     * @param classAttribute is the attribute which use to test your decision tree
+     * @param k is the array position of the special class attribute value
+     * @return a array full of dataset folds
+     */
     public FoldDataSet[] stratification(Attribute classAttribute, int k){
 
             ArrayList<Integer>[] valuesIndices = new ArrayList[classAttribute.getValues().size()];
@@ -307,6 +320,11 @@ public class DataSet {
             return kDataSets;
     }
 
+    /**
+     * Build the trainingsets out of the complement folds from the test set
+     * @param foldDataSets are alle testsets
+     * @return all trainingsets for all testsets
+     */
     public FoldDataSet[] buildComplements(FoldDataSet[] foldDataSets){
 
         FoldDataSet[] compFolds = new FoldDataSet[foldDataSets.length];
@@ -317,6 +335,10 @@ public class DataSet {
     }
 
 
+    /**
+     * Helper method to randomize the order of the instances in a fold
+     * @throws Exception
+     */
     public void shuffle() throws Exception {
         if(this instanceof WeightedDataSet){
             throw new Exception("Method not supported.");

@@ -1,4 +1,6 @@
-
+Machine Learning
+Blatt 4 Abgabe
+Nadine Dalheimer, Alexander Kindl, Ken Moller
 
 Task 1 )
 --------
@@ -11,7 +13,7 @@ Daher dominiert bei d = 1, .. 3 der Biasfehler. Bei 1 und 2 wird sogar noch vers
 
 Ab einem d von 3 verbessern sich die Ergebnisse. Jedoch gibt es an den Rändern immer noch einen systemanischen Fehler. Die Varianz bleibt auch bei diesen Bildern (3,4) noch deutlich sichtbar, sodass mehrere unterschiedliche Funktionen erkennbar sind. 
 
-Ab einem d von 5 sieht die Annhäerung sehr gut aus. Der Bias und die Varianz sind fast nicht mehr sichtbar und mehrere Funktionen sind fast nicht mehr zu erkenne. Hier bleibt also lediglich der irreduzible Fehler sichtbar.
+Ab einem d von 5 sieht die Annhäerung sehr gut aus. Der Bias und die Varianz sind fast nicht mehr sichtbar und mehrere Funktionen sind fast nicht mehr zu erkennen. Hier bleibt also lediglich der irreduzible Fehler sichtbar.
 
 
 Task 2 )
@@ -29,7 +31,7 @@ TP                        TP : True Positive      FP : False Positive
 
 Ein guter Lernen zeichnet sich bei der ROC dadurch aus, dass der Graph schnell nach oben steigt. Da die Datenpunkte nach der Vorhersage sortiert sind, ist eine ROC besser, wenn die FP Werte erst so spät wie möglich auftauchen.
 
-In unseren Beispiel waren die Werte auf den Übungsblatt bereits mithilfe der Prediction sortiert, daher war dieser Wert nicht weiter notwendig. Am Anfang steigen die Werte sehr stark, wodurch der Algorithmus sehr gut erscheint. Gegen ende tauchen jedoch nochmals FP Werte auf. Das heißt, möchten wir TP Raten von 0 bis 80%, dann ist unser Lerner sehr gut dafür geeignet. Da er auf diesem Weg nur 2 FP Werte hat ( FP Rate 40 %). Möchte man jedoch eine höhre TP Rate muss man sich mit einer höheren FP Rate anfreunden.
+In unseren Beispiel waren die Werte auf den Übungsblatt bereits mithilfe der Prediction sortiert, daher war dieser Wert nicht weiter notwendig. Am Anfang steigen die Werte sehr stark, wodurch der Algorithmus sehr gut erscheint. Gegen Ende tauchen jedoch nochmals FP Werte auf. Das heißt, möchten wir TP Raten von 0 bis 80%, dann ist unser Lerner sehr gut dafür geeignet. Da er auf diesem Weg nur 2 FP Werte hat ( FP Rate 40 %). Möchte man jedoch eine höhere TP Rate, muss man sich mit einer höheren FP Rate anfreunden.
 
 
 Task 3 )
@@ -64,7 +66,7 @@ Wie in den oben dargestellten Ergebnissen zu sehen ist, erzielt Random Forest ei
 Task 5 )
 --------
 
-Auf dem Aufgabenbaltt wir die Formel P / ( N + P ) angeführt. Hierbei steht P für alle richtig klassifiezierten Instanzen des Lernes und N für alle falsch klassifizierten Instanzen. Betrachte nun P. Die richtig klassifzierten Instanzen ergeben sich aus der Summe von P = TP + TN und die falsch klassifizierten Instanzen ergeben sich durch die Summe von N = FP + FN. Damit lässt sich die Formel umschreiben zu (TP + TN) / (TP + TN + FP + FN). TP ist hierbei mit Sensitivität in Verbindung zu bringen und TN mit der Spezifität. Die Formel gleicht weiterhin der gegebenen Definition für eine binäre accuracy.
+Auf dem Aufgabenblatt haben wir die Formel P / ( N + P ) angeführt. Hierbei steht P für alle richtig klassifizierten Instanzen des Lernes und N für alle falsch klassifizierten Instanzen. Betrachte nun P. Die richtig klassifizierten Instanzen ergeben sich aus der Summe von P = TP + TN und die falsch klassifizierten Instanzen ergeben sich durch die Summe von N = FP + FN. Damit lässt sich die Formel umschreiben zu (TP + TN) / (TP + TN + FP + FN). TP ist hierbei mit Sensitivität in Verbindung zu bringen und TN mit der Spezifität. Die Formel gleicht weiterhin der gegebenen Definition für eine binäre accuracy.
 
 
 

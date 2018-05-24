@@ -96,6 +96,12 @@ public class Utils {
         return result;
     }
 
+    /**
+     * Check if an int array cotains a special integer
+     * @param array which you want to scan
+     * @param i the integer you are looking for
+     * @return true if the integer i exists in the array, otherwise false
+     */
     public static boolean contains(int[] array, int i){
         for(int j = 0; j < array.length; j++){
             if(array[j] == i) return true;
@@ -104,6 +110,11 @@ public class Utils {
     }
 
 
+    /**
+     * Build a string out of a string Array with numspaces between all words
+     * @param array you want to concat
+     * @return a string as the text of the string array
+     */
     public static String concatStringArray(String[] array){
         StringBuilder sb = new StringBuilder();
         for(int i = 0; i < array.length; i++){

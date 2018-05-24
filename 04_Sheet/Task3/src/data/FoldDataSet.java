@@ -4,19 +4,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by ken on 20.05.2018.
+ * Class to represent a fold dataset
+ * Created by nadine on 20.05.2018.
  */
 public class FoldDataSet extends DataSet {
 
     protected DataSet sourceDataSet;
     protected int[] sourceRows;
 
+    /**
+     * Constructor
+     * @param dataSet
+     */
     public FoldDataSet(FoldDataSet dataSet) {
         super(dataSet);
         this.sourceRows = dataSet.getSourceRows();
         this.sourceDataSet = dataSet.getSourceDataSet();
     }
 
+    /**
+     * Constructor
+     * @param sourceDataSet
+     * @param sourceRows
+     */
     public FoldDataSet(DataSet sourceDataSet,
                        int[] sourceRows) {
         super(sourceDataSet, sourceRows);
@@ -25,6 +35,10 @@ public class FoldDataSet extends DataSet {
     }
 
 
+    /**
+     * Build the complement/ Trainingset
+     * @return the trainingset as folddataset
+     */
     public FoldDataSet buildComplement(){
 
         ArrayList<Integer> complement = new ArrayList<>();
@@ -35,7 +49,6 @@ public class FoldDataSet extends DataSet {
         }
         return new FoldDataSet(sourceDataSet, Utils.toIntArray(complement));
     }
-
 
 
     public DataSet getSourceDataSet() {
