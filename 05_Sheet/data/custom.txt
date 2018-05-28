@@ -1,0 +1,6 @@
+A	"hallo das ist label a"
+B	"auf wiedersehen ich gehe zu b"
+C	"dann halt noch eins"
+B	"wiedersehen gehe ich"
+A	"a label ist das hallo"
+B	"b zu gehe ich wiedersehen auf"
