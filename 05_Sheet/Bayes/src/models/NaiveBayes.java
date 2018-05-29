@@ -4,6 +4,7 @@ import objects.BagOfWords;
 import utils.Utils;
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,18 +57,18 @@ public class NaiveBayes {
     public void predict(ArrayList<BagOfWords> bags){
 
         for(BagOfWords bag : bags){
-            double maxProb = Double.NEGATIVE_INFINITY;
+            BigDecimal maxProb = new BigDecimal(0);
             String maxLabel = null;
             for(String label : labels){
                 HashMap<String, Double> labelWordProbs = wordProbabilities.get(label);
                 // Probability tells how probable it is to classify this bag as label
                 // Initialize probability with P(v_j)
-                double probability = labelProbabilities.get(label);
+                BigDecimal probability = new BigDecimal(labelProbabilities.get(label));
                 for(Map.Entry<String, Integer> word : bag.entrySet()){
-                    Double tmp = labelWordProbs.get(word.getKey());
-                    probability *= tmp;
+                    BigDecimal tmp = new BigDecimal(labelWordProbs.get(word.getKey()));
+                    probability = probability.multiply(tmp);
                 }
-                if(maxProb < probability){
+                if(maxProb.compareTo(probability) < 0){
                     maxProb = probability;
                     maxLabel = label;
                 }
