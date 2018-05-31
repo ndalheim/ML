@@ -4,6 +4,7 @@ import objects.BagOfWords;
 import utils.Utils;
 
 
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,12 +13,11 @@ import java.util.Map;
 /**
  * Created by ken on 28.05.2018.
  */
-public class NaiveBayes {
+public class NaiveBayes implements Serializable{
 
 
     private ArrayList<String> labels;
     private HashMap<String, Double> labelProbabilities;
-
     private ArrayList<BagOfWords> bagsOfWords;
     private HashMap<String, HashMap<String, Double>> wordProbabilities;
 
@@ -88,6 +88,24 @@ public class NaiveBayes {
             }
             bag.setLabel(maxLabel);
         }
+    }
+
+    public void saveModel(String fileName) throws IOException {
+
+        ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(new File("." + File.separator + fileName)));
+        oos.writeObject(this);
+        oos.close();
+    }
+
+    public static NaiveBayes readModel(String fileName)
+            throws IOException, ClassNotFoundException {
+
+        ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream(new File("." + File.separator + fileName)));
+        NaiveBayes nb = (NaiveBayes) ois.readObject();
+        ois.close();
+        return nb;
     }
 
 

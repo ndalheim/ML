@@ -17,7 +17,9 @@ import java.util.Date;
 public class Main {
 
 
-    public static void main(String... args) throws IOException {
+    public static final String MODEL_NAME = "naiveBayesModel";
+
+    public static void main(String... args) throws IOException, ClassNotFoundException {
 
         if(args.length < 1) {
             System.out.println("No args specified.");
@@ -57,7 +59,7 @@ public class Main {
             System.out.print("Building most frequent words... " );
             timeVar = System.currentTimeMillis();
             BagOfWords frequentWords = new BagOfWords(vocabulary);
-            frequentWords.keepFrequentWords(0.005);
+            frequentWords.keepFrequentWords(0.011);
             timeVar = System.currentTimeMillis() - timeVar;
             System.out.println("\t " + (double)timeVar / 1000 + "s");
 
@@ -89,10 +91,28 @@ public class Main {
             timeVar = System.currentTimeMillis() - timeVar;
             System.out.println("\t " + (double)timeVar / 1000 + "s");
 
+            System.out.println("Saving model...");
+            nb.saveModel(MODEL_NAME);
+
             System.out.println("Compute statistics....");
             Calculator.computeStatistics(predictionBags, testBags, labels);
 
+        } else {
+
+            System.out.println("Loading model...");
+            NaiveBayes nb = NaiveBayes.readModel(MODEL_NAME);
+
+            System.out.println("Start reading...");
+            ArrayList<String> plainFileContent = TSVParser.readLines(args[0]);
+
+            System.out.println("Building bags...");
+            ArrayList<BagOfWords> bags = TSVParser.buildBags(plainFileContent);
+
+            System.out.println("Saving predictions...");
+            Utils.savePredictions(args[1], bags);
         }
+
+
 
     }
 

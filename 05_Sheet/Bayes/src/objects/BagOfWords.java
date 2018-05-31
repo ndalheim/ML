@@ -16,7 +16,7 @@ public class BagOfWords extends HashMap<String, Integer>
 
     private Integer unions;
 
-    private static final int SHINGLE_SIZE = 5;
+    private static final int SHINGLE_SIZE = 3;
     private static final int SHINGLE_STRIDE = 1;
 
     public BagOfWords(BagOfWords bag) {

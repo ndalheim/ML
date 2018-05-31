@@ -3,6 +3,7 @@ package utils;
 import interfaces.DeepCloneable;
 import objects.BagOfWords;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -38,6 +39,18 @@ public class Utils {
             copy.add(element.deepClone());
         }
         return copy;
+    }
+
+    public static void savePredictions(String fileName, ArrayList<BagOfWords> bags) throws IOException {
+
+        BufferedWriter bos = new BufferedWriter(
+                new FileWriter(new File("." + File.separator + fileName)));
+
+        for(BagOfWords bag : bags){
+            bos.write(bag.getLabel() + "\n");
+        }
+        bos.close();
+
     }
 
 }
