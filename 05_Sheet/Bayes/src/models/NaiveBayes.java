@@ -32,24 +32,37 @@ public class NaiveBayes {
         wordProbabilities = new HashMap<>();
 
         HashMap<String, BagOfWords> docs = new HashMap<>();
+        addToDocs(bags, docs);
+        computeLabelProbabilities(vocabulary, docs);
+
+        for(Map.Entry<String, BagOfWords> doc : docs.entrySet()){
+            computeWordProbsForDoc(vocabulary, doc);
+        }
+    }
+
+    private void computeWordProbsForDoc(BagOfWords vocabulary, Map.Entry<String, BagOfWords> doc) {
+        HashMap<String, Double> wordProbs = new HashMap<>();
+        for(Map.Entry<String, Integer> word : vocabulary.entrySet()){
+            wordProbs.put(word.getKey(),
+                    (doc.getValue().safeGet(word.getKey()) + 1.0) / (doc.getValue().countWords() + vocabulary.size()));
+        }
+        wordProbabilities.put(doc.getKey(), wordProbs);
+    }
+
+    private void computeLabelProbabilities(BagOfWords vocabulary, HashMap<String, BagOfWords> docs) {
+        for(Map.Entry<String, BagOfWords> entry : docs.entrySet()){
+            labelProbabilities.put(entry.getKey(),
+                    (entry.getValue().getUnions() + 1.0) / (vocabulary.getUnions() + 1.0));
+        }
+    }
+
+    private void addToDocs(ArrayList<BagOfWords> bags, HashMap<String, BagOfWords> docs) {
         for(BagOfWords bag : bags){
             if(docs.containsKey(bag.getLabel())){
                 docs.get(bag.getLabel()).union(bag);
             }else{
                 docs.put(bag.getLabel(), new BagOfWords(bag));
             }
-        }
-        for(Map.Entry<String, BagOfWords> entry : docs.entrySet()){
-            labelProbabilities.put(entry.getKey(),
-                    (entry.getValue().getUnions() + 1.0) / (vocabulary.getUnions() + 1.0));
-        }
-        for(Map.Entry<String, BagOfWords> doc : docs.entrySet()){
-            HashMap<String, Double> wordProbs = new HashMap<>();
-            for(Map.Entry<String, Integer> word : vocabulary.entrySet()){
-                wordProbs.put(word.getKey(),
-                        (doc.getValue().safeGet(word.getKey()) + 1.0) / (doc.getValue().countWords() + vocabulary.size()));
-            }
-            wordProbabilities.put(doc.getKey(), wordProbs);
         }
     }
 

@@ -31,7 +31,7 @@ public class TSVParser {
         for(String line : lines){
             String[] pair = line.split("\t");
             String text = pair[1].substring(1, pair[1].length() - 1);
-            BagOfWords bag = new BagOfWords(pair[0], text);
+            BagOfWords bag = new BagOfWords(pair[0], text, true);
             bags.add(bag);
         }
         return bags;

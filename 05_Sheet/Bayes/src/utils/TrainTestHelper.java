@@ -1,5 +1,7 @@
 package utils;
 
+import objects.BagOfWords;
+
 import java.util.ArrayList;
 
 /**
@@ -26,6 +28,15 @@ public class TrainTestHelper {
             counter++;
         }
         return trainTest;
+    }
+
+    public static void removeBagOfWords(BagOfWords toRemove, ArrayList<BagOfWords>... bagsList){
+
+        for(ArrayList<BagOfWords> bags : bagsList){
+            for(BagOfWords bag : bags){
+                bag.remove(toRemove);
+            }
+        }
     }
 
 

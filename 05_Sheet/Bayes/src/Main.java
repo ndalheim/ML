@@ -1,3 +1,4 @@
+import com.sun.org.apache.xpath.internal.SourceTree;
 import io.TSVParser;
 import models.NaiveBayes;
 import objects.BagOfWords;
@@ -6,7 +7,9 @@ import utils.TrainTestHelper;
 import utils.Utils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by ken on 28.05.2018.
@@ -20,27 +23,75 @@ public class Main {
             System.out.println("No args specified.");
         }
 
+        long timeVar = 0;
+
+
         if("developer".equals(args[0])) {
 
+            System.out.print("Start reading...");
+            timeVar = System.currentTimeMillis();
             ArrayList<String> plainFileContent = TSVParser.readLines(args[1]);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
 
+            System.out.print("Splitting train and test...");
+            timeVar = System.currentTimeMillis();
             ArrayList<String>[] trainTest = TrainTestHelper
                     .splitTrainTest(plainFileContent, 2.0 / 3.0);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
 
+            System.out.print("Building bags...");
+            timeVar = System.currentTimeMillis();
             ArrayList<BagOfWords> trainBags = TSVParser.buildBags(trainTest[0]);
             ArrayList<BagOfWords> testBags = TSVParser.buildBags(trainTest[1]);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
+
+            System.out.print("Building vocabulary...");
+            timeVar = System.currentTimeMillis();
             BagOfWords vocabulary = Utils.buildVocabulary(trainBags, testBags);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
 
+            System.out.print("Building most frequent words... " );
+            timeVar = System.currentTimeMillis();
+            BagOfWords frequentWords = new BagOfWords(vocabulary);
+            frequentWords.keepFrequentWords(0.005);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
+
+            System.out.print("Removing most frequent words form bags...");
+            timeVar = System.currentTimeMillis();
+            TrainTestHelper.removeBagOfWords(frequentWords, trainBags, testBags);
+            vocabulary.remove(frequentWords);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
+
+
+            System.out.print("Naive bayes preparations...");
+            timeVar = System.currentTimeMillis();
             ArrayList<String> labels = TSVParser.filterDistinctLabels(trainBags, testBags);
-
             ArrayList<BagOfWords> predictionBags = Utils.deepCloneCollection(testBags);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
 
-
+            System.out.print("Begin training...");
+            timeVar = System.currentTimeMillis();
             NaiveBayes nb = new NaiveBayes();
             nb.trainModel(labels, trainBags, vocabulary);
-            nb.predict(predictionBags);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
 
+            System.out.print("Begin predicting...");
+            timeVar = System.currentTimeMillis();
+            nb.predict(predictionBags);
+            timeVar = System.currentTimeMillis() - timeVar;
+            System.out.println("\t " + (double)timeVar / 1000 + "s");
+
+            System.out.println("Compute statistics....");
             Calculator.computeStatistics(predictionBags, testBags, labels);
+
         }
 
     }
