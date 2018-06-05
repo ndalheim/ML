@@ -100,13 +100,17 @@ public class Main {
         } else {
 
             System.out.println("Loading model...");
-            NaiveBayes nb = NaiveBayes.readModel(MODEL_NAME);
+            NaiveBayes nb = NaiveBayes.readModelFromJar(MODEL_NAME);
 
             System.out.println("Start reading...");
             ArrayList<String> plainFileContent = TSVParser.readLines(args[0]);
 
             System.out.println("Building bags...");
             ArrayList<BagOfWords> bags = TSVParser.buildBags(plainFileContent);
+
+            System.out.println("Predicting...");
+            TrainTestHelper.fitToVocabulary(nb.getVocabulary(), bags);
+            nb.predict(bags);
 
             System.out.println("Saving predictions...");
             Utils.savePredictions(args[1], bags);

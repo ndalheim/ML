@@ -1,7 +1,6 @@
 package models;
 
 import objects.BagOfWords;
-import utils.Utils;
 
 
 import java.io.*;
@@ -18,7 +17,7 @@ public class NaiveBayes implements Serializable{
 
     private ArrayList<String> labels;
     private HashMap<String, Double> labelProbabilities;
-    private ArrayList<BagOfWords> bagsOfWords;
+    private BagOfWords vocabulary;
     private HashMap<String, HashMap<String, Double>> wordProbabilities;
 
 
@@ -27,7 +26,7 @@ public class NaiveBayes implements Serializable{
                            BagOfWords vocabulary){
 
         this.labels = labels;
-        this.bagsOfWords = bags;
+        this.vocabulary = vocabulary;
         labelProbabilities = new HashMap<>();
         wordProbabilities = new HashMap<>();
 
@@ -98,15 +97,61 @@ public class NaiveBayes implements Serializable{
         oos.close();
     }
 
-    public static NaiveBayes readModel(String fileName)
+    public static NaiveBayes readModel(String fileName) throws IOException, ClassNotFoundException {
+        return readModel(fileName, false);
+    }
+
+    public static NaiveBayes readModelFromJar(String fileName) throws IOException, ClassNotFoundException {
+        return readModel(fileName, true);
+    }
+
+    private static NaiveBayes readModel(String fileName,
+                                       boolean fromJar)
             throws IOException, ClassNotFoundException {
 
-        ObjectInputStream ois = new ObjectInputStream(
-                new FileInputStream(new File("." + File.separator + fileName)));
+        ObjectInputStream ois = null;
+        if(fromJar){
+            InputStream is = NaiveBayes.class.getClassLoader().getResourceAsStream(fileName);
+            ois = new ObjectInputStream(is);
+        } else {
+            ois = new ObjectInputStream(
+                    new FileInputStream(new File("." + File.separator + fileName)));
+        }
         NaiveBayes nb = (NaiveBayes) ois.readObject();
         ois.close();
         return nb;
     }
 
 
+    public ArrayList<String> getLabels() {
+        return labels;
+    }
+
+    public void setLabels(ArrayList<String> labels) {
+        this.labels = labels;
+    }
+
+    public HashMap<String, Double> getLabelProbabilities() {
+        return labelProbabilities;
+    }
+
+    public void setLabelProbabilities(HashMap<String, Double> labelProbabilities) {
+        this.labelProbabilities = labelProbabilities;
+    }
+
+    public BagOfWords getVocabulary() {
+        return vocabulary;
+    }
+
+    public void setVocabulary(BagOfWords vocabulary) {
+        this.vocabulary = vocabulary;
+    }
+
+    public HashMap<String, HashMap<String, Double>> getWordProbabilities() {
+        return wordProbabilities;
+    }
+
+    public void setWordProbabilities(HashMap<String, HashMap<String, Double>> wordProbabilities) {
+        this.wordProbabilities = wordProbabilities;
+    }
 }
