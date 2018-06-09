@@ -1,0 +1,132 @@
+
+Task 1)
+--------
+
+a)
+Der Plot ist der Abgabe beigefügt.
+x-Achse : Wert von -C Option.
+y-Achse : Accuracy der jeweiligen Modelle.
+
+
+e)
+
+Car:
+----
+Option : -C
+Best value : 0.49999999999999994
+Best accuracy : 92.88042747681139
+
+Accuracy on complete dataset : 96.29629629629629
+
+Diabetes:
+---------
+Option : -C
+Best value : 0.15000000000000002
+Best accuracy : 75.4084073820916
+
+Accuracy on complete dataset : 80.33854166666667
+
+Wie oben zu sehen, ist die accuracy auf den Folds deutlich geringer als auf dem kompletten Datensatz. Außerdem verbessert die -C Option den Baum wesentlich, dies ist im Diagrammen der ersten Teilaufgabe deutlich erkennbar. 
+
+
+e) Die oben beschriebenen Resultate wurden mit den geleichen Parametern für -C erzeugt, wie in Teilaufgabe a). Grund hierfür ist einfach, dass keine anderen angegeben waren, jedoch für die Methode in Teilaufgabe b) benötigt werden. Daher entsprechen diese Resultate auch dem Diagramm. 
+
+Task 3)
+--------
+
+Die Implementierung ist der Abgabe beigefügt.
+
+
+##################### Input #####################
+
+X:
+Type = dense64 real , numRows = 19 , numCols = 5
+ 1,000  3,437  5,791  3,268 10,649 
+ 1,000 12,801  4,558  5,751 14,375 
+ 1,000  6,136  6,223 15,175  2,811 
+ 1,000 11,685  3,212  0,639  0,964 
+ 1,000  5,733  3,220  0,534  2,052 
+ 1,000  3,021  4,348  0,839  2,356 
+ 1,000  1,689  0,634  0,318  2,209 
+ 1,000  2,339  1,895  0,610  0,605 
+ 1,000  1,025  0,834  0,734  2,825 
+ 1,000  2,936  1,419  0,331  0,231 
+ 1,000  5,049  4,195  1,589  1,957 
+ 1,000  1,693  3,602  0,837  1,582 
+ 1,000  1,187  2,679  0,459 18,837 
+ 1,000  9,730  3,951  3,780  0,524 
+ 1,000 14,325  4,300 10,781 36,863 
+ 1,000  7,737  9,043  1,394  1,524 
+ 1,000  7,538  4,538  2,565  5,109 
+ 1,000 10,211  4,994  3,081  3,681 
+ 1,000  8,697  3,005  1,378  3,338 
+
+y:
+Type = dense64 real , numRows = 19 , numCols = 1
+27,698 
+57,634 
+47,172 
+49,295 
+24,115 
+33,612 
+ 9,512 
+14,755 
+10,570 
+15,394 
+27,843 
+17,717 
+20,253 
+37,465 
+101,334 
+47,427 
+35,944 
+45,945 
+46,890 
+
+################## Computation ##################
+
+X^T:
+Type = dense64 real , numRows = 5 , numCols = 19
+ 1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000  1,000 
+ 3,437 12,801  6,136 11,685  5,733  3,021  1,689  2,339  1,025  2,936  5,049  1,693  1,187  9,730 14,325  7,737  7,538 10,211  8,697 
+ 5,791  4,558  6,223  3,212  3,220  4,348  0,634  1,895  0,834  1,419  4,195  3,602  2,679  3,951  4,300  9,043  4,538  4,994  3,005 
+ 3,268  5,751 15,175  0,639  0,534  0,839  0,318  0,610  0,734  0,331  1,589  0,837  0,459  3,780 10,781  1,394  2,565  3,081  1,378 
+10,649 14,375  2,811  0,964  2,052  2,356  2,209  0,605  2,825  0,231  1,957  1,582 18,837  0,524 36,863  1,524  5,109  3,681  3,338 
+
+X^T * X:
+Type = dense64 real , numRows = 5 , numCols = 5
+19,000 116,969 72,441 54,063 112,492 
+116,969 1036,087 507,888 469,482 961,729 
+72,441 507,888 347,519 265,408 460,194 
+54,063 469,482 265,408 430,422 610,689 
+112,492 961,729 460,194 610,689 2125,351 
+
+(X^T * X)^-1:
+Type = dense64 real , numRows = 5 , numCols = 5
+ 0,303 -0,011 -0,050  0,009 -0,003 
+-0,011  0,005 -0,003 -0,001 -0,001 
+-0,050 -0,003  0,019 -0,004  0,001 
+ 0,009 -0,001 -0,004  0,006 -0,001 
+-0,003 -0,001  0,001 -0,001  0,001 
+
+x^T * y:
+Type = dense64 real , numRows = 5 , numCols = 1
+670,575 
+5570,426 
+2944,414 
+2902,210 
+6296,283 
+
+#################### Result #####################
+
+w:
+Type = dense64 real , numRows = 5 , numCols = 1
+ 2,283 
+ 3,208 
+ 1,619 
+ 0,817 
+ 0,805 
+
+MSE: 27.8785434427573
+
+
