@@ -1,0 +1,91 @@
+
+
+Aufgabe 1)
+----------
+
+Dadurch, dass der Entscheidungsbaum nun lazy implementiert werden soll, ergeben sich einige Änderungen ohne das eine genau Beschreibung des neuen Algorithmus benötigt wird.
+
+Für den lazy Entscheidungsbaum
+------------------------------
+Vorteile :
+    - Der Baum kann im Trainingsprozess die Punkte, die später klassifiziert werden sollen, mit einbeziehen. Dadurch hat er implizit mehr Informationen zu Verfügung und die Möglichkeit besser als eine eager Methode zu sein.
+    - Die Trainingszeit des lazy Algorithmus ist deutlich geringer, da der Baum erst zur Vorhersagezeit gebaut werden kann. Vorher sind die zu klassifizierenden Daten icht vorhanden. Dadurch kann er eine bessere globale Annäherung erzielen.
+
+Nachteile :
+    - Der Trainigsprozess kann nun unter Umständen komplizierter werden, da mehr Daten zur verfügung stehen.
+    - Die Vorhersage dauert wersentlich länger, da der Baum nun erst noch aufgebaut werden muss.
+    - Möchte man mehrere Datensätze vorhersagen, muss der Baum immer neu berechnet werden.
+
+Für den eager Entscheidungsbaum
+--------------------------------
+Vorteile :
+    - Das tranierte Modell kann über verschiedene Datensätze wiederverwendet werden und muss nicht immer neue berechnet werden.
+    - Die Vorhersage geht erheblich schneller wenn der Baum bei der Vorhersage bereits existert.
+
+Nachteile :
+    - Ihm fehlen im Vergleich zu einem lazy Algorithmus Informationen, die ihm ermöglichen könnten eine bessere Accuracy zu bekommen.
+    - Der Trainingsprozess dauert wesentlich länger als bei einem lazy Algorithmus.
+
+
+
+Aufgabe 2)
+----------
+
+a)
+
+Das Volumen des Quadrats ist d*d. Die 5 Punkte liegen im durschnitt in 5/5000 des Volumens.
+ <=> Volumen des Einheitsquadrat * Durchschnittliches Auftreten der Punkte = Volumen des gesuchten Quadrats
+ <=> 1 * 5/5000 = d*d
+ <=> d = sqrt(5/5000) = 0.0316
+
+b)
+
+Die Rechnung in a) lässt sich verallgemeinern.
+ <=>  Volumen des Einheitshyperwürfels * Durchschnittliches Auftreten der Punkte = Volumen des gesuchten Hyperwürfels
+ <=> 1 * 5 / 5000 = d^n
+ <=> d = (5 / 5000)^(1/n)
+
+c)
+
+ <=> 1 * 5/5000 < (0.5)^n
+ <=> log(5/5000) / log(0.5) < n
+ <=> 9.9658 < n // n element aus N
+ <=> 10 <= n
+
+
+
+Aufabe 3)
+---------
+
+Um das Diagram im Speicher darzustellen müssen die Geraden, die die Entscheidungsübergänge kodieren gespeichert werden.
+
+Um einen Entscheidungsübergang zu speichern (lineare Gerade), müssen folgende Informationen abgebildet werden:
+   - Start der linearen Gerade
+   - Ende der linearen Gerade
+   - Klassenlabels der jeweiligen Seite der linearen Gerade
+
+Aus diesen Informationen kann das Diagramm so rekonstruiert werden, dass eine Vorhersage eines unbekannte Punktes möglich ist.
+
+Problematisch: Im schlechtesten Fall haben alle anneinander grenzenden Punkte unterschiedliche Klassenlabels, sodass jede lineare Gerade einen Entscheidungsübergang kodiert. Pro Punkt wird hierdurch mindestens eine lineare Gerade erzeugt uns somit Speicher für die 2 Endpunkte inklusive 2 Klassenlabels benötigt. Möchte man sogar das komplette Diagramm rekonstruieren können, müssen alle linearen Geraden gespeichert werden. Dadurch können Zustände erzeugt werden, die linearen Speicherbedarf übersteigen. Auch bezüglich der Berechnung erhält man keinen offensichtlichen Vorteil durch die Abspeicherung der linearen Geraden. Lediglich der Mensch, kann durch die Visualisierung leichter eine Entscheidung treffen.
+
+
+
+
+Aufgabe 4)
+----------
+
+Diese Aufgabe ist der Abgabe als PNG beigefügt (Aufgabe4.png). Hier sind lediglich ergänzende Informationen enthalten.
+
+A and not B
+-----------
+
+Im Folgenden beziehen wir uns auf Folie 22 von der letzen Vorlesung wo das Perceptron Netzwerk gezeigt wird.
+
+Die Eingabe des Netzwerks besteht aus einem 3 dimensionalen boolischen Vektor, der in der ersten Komponente 1 enthält und in der zweiten A und der dritten B.
+Weiter wählen wir w_0 = 0, w_1 = 1 und w_2 = -1. Damit wird die Summe nur =1, wenn A=1 (true) und B=0 (false).
+
+
+
+
+
+ 
